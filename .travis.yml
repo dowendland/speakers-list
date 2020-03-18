@@ -1,0 +1,28 @@
+language: scala
+scala:
+  - 2.13.1
+install:
+  - npm install -g codecov
+  - npm install -g snyk
+  - snyk auth $SNYK_TOKEN
+  - snyk test
+script:
+  - sbt clean coverage test coverageReport
+  - codecov
+cache:
+  directories:
+    - node_modules
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: heroku
+  api_key:
+    secure: It7JMkfGn3/MLBobO+uI4APj5W0+wRyX81cNetM8QZoLR/8x6SDmr5auo4RaDL6t8aQDVg5Yh9Qt4q4tB+igJHkIIDq2NoBqSBlJOA3p5xStf9nHm/HovLHhhxmBOf1sVaNi9RU5DwJMwiejIXX4+kQB9okAuLXXZ5VT+mRrSDtxzzqwzfJTJ5hc9LJM7lX+sws8judWEvqp8I/7JATkH3uywPdIhzQC5JdiqMUelbh0uVwDJLqWaKClF7UjJebnDbSyB2T33t9q87Y+jBM0W03Y6fJyt+wkOyVS9WcXQqwDyzAtNGlA5d/yAEQmH47BHA9/X8uU26OTKqbkhytOLwwNPPExtxVfVGhWK0oXkCXvqRP7GK7n2YcsBP55OndJ5XPC9sVuA2KSvNOjafeJz8E5XkEZoIH7dB2914h7w8dyubVED67POv+C9uIKT+AgvLlfCwTQBOWxSaXnw4CsNJyPny74bpCa24KbKrLWunOXX9BCwmh3jXLATNNKWOIqGl97If5jdG9/64EsSR1Be/3iQPBRepHVcW66U5R43QBQEdWi3pOh99fUsFWLlZQEtZR7ErecLvbsGzdadxCdb9jnx8ft7/x8DV3uZGNSNtjq0XtA+UIklhgn97RLJ9+gSTD7Whis3RWUSpxFn84vi+m7n1ebDTn1/DxGjjWCzUo=
+after_deploy:
+  - snyk monitor
+env:
+  global:
+    # Codecov
+    - secure: dEkbtEfX3cf072iUCforJZTjZ11DvLsFJEi3zPqRpX4Ot6tQfyzYeRyrsAcTObD+44r1MKlImFQX1EOFBEwKUV0rz7yHRvvzLC/FqZc0jBzmbRI+a2NgFtedum7QhD0uaY2905mHVuFnezcaebIIE8hws+DDEggIIIqPh9JLiViVYa+KTFkl9LUPMnMs0RHZF075qj2yxtIT3DbrpsbQ2bhKcixS+SAOhQH12VF4bjynyiyTRrup0DrGwSeTZ/Whfo1c2ckfBy5sLAbSj6NeOEzFg3If5eEpReEWswb8UqzUpyz1xfNRBNySyUdfxf2erpxjV4t9Iw/JbCApTGnWIB5q0a/4uE7saUvfvbNicJd6yunBusloDJB8LLz2mTzjHS+hkLGeGSXJYeq5PoIx3on4PhkM0B680RAdTjBd+PL11FeKJWiBNy8M6nnsikqDsZemqWygI2camsxUZzLwj4OmWN1DmTc9oJmvJxU1/qmXYamv7na6O4ydX90xpOmvS17nUClkzeqYxeKJ9jEM0Izwm0+nnvXwTSxroTtMDAgy9plbRTG23g/CEZVawuz+Jv9irw3UJd0Uydxi97lJOqvFULjN1teqlR5JBKW1LAL7lhhzLYoCYPUJVFHieU3aA2ctZYk+HzknKupIGv7fKCUiMbrohDRG/ajLUxajYsg=
+    # Snyk
+    - secure: NFsrvpMqrguRbQm967Iz4hTBIlwj8OHH9cS1lRM14RiIVnhqseY8M0/Jv+hnmqWIBTyaAFYDL8kKazGphpr2hXOfIgURFPE6SXo/pkB5o3Omv1qp6SwAF7mSbifxfWaxnqItQiF+m7C7Vqqt7cquYlzw3oqQxrZiW2W1jAIuwHP06r54FDwTdFy5R0n8fTzaK6YwJibWyfmV8X+viTaIoUeyjaQgKdxgjoY9kWtftCqGZ7MNSHy54Dgks7ZJfSqCzLq530xIPjyJvaIoOwgRQsKjYUWY7L8aHyTyJ0bqmd79Ax/Ovb9/A69/cYEOsscfpTJTfyFBJUomSoZhGQtf1Z34lBtAQhMMuxKyN0dbVodXuNc5HzijPMmTKC+hLdTkCil0Y+5qeH3mls3Mc8z0MWEVHu5N14fmJN1MU1euR2IJkYl4VkQhJEnISTebqdYrQTnNx+KMo9SmuZVFKqmDaNSBcYmDOYc9oxcZmax9K5WzIYH69LPZSgR8sSGk9JwWi8xhW8jxUuwSlxXBe/AyhNEDBzwLEGPryNXn9GgdVrzlRR4FDt+C6ECFDRh7ZIBw8XfJTgUjDGlNFgSOuFQ1xW/uXkBBcpZfRoLXW5poPd1fRIiaT2LqkZ1mmoTid+WAzPYeKIKm4MptznTOj3GJvUF1a+YxjZEhFvUJSinfY2A=

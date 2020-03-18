@@ -1,0 +1,25 @@
+#app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #2c3e50;
+}
+
+#nav {
+  a {
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      font-weight: bold;
+      color: #42b983;
+    }
+  }
+
+  .navbar-brand img {
+    max-height: 1.75rem;
+  }
+}
+
+main {
+  padding: 3rem 1.5rem;
+}

@@ -1,0 +1,8 @@
+{
+  "name": "speakers-list",
+  "description": "Web app for managing lists of speakers in meetings.",
+  "keywords": ["Scala", "Play", "Vue"],
+  "website": "https://github.com/CyberScouter/speakers-list",
+  "repository": "https://github.com/CyberScouter/speakers-list",
+  "success_url": "/"
+}
